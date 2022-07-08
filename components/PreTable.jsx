@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
   Badge,
 } from "@chakra-ui/react";
@@ -16,7 +14,7 @@ function PreTable(props) {
   const { data, preTime } = props;
   const predata = data.result.map((element, index) => {
     return (
-      <Tr className="hover:bg-zinc-800">
+      <Tr className="hover:bg-zinc-800" key={element.id}>
         <Td>
           <a href="">
             <Badge
