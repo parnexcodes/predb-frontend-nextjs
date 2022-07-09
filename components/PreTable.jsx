@@ -7,7 +7,7 @@ import {
   Th,
   Td,
   TableContainer,
-  Badge,
+  Tag,
 } from "@chakra-ui/react";
 
 function PreTable(props) {
@@ -17,24 +17,26 @@ function PreTable(props) {
       <Tr className="hover:bg-zinc-800" key={element.id}>
         <Td>
           <a href="">
-            <Badge
+            <Tag
               variant="outline"
               color={"whiteAlpha.800"}
               colorScheme="whiteAlpha"
+              size={'sm'}
             >
               {element.preCategory}
-            </Badge>
+            </Tag>
           </a>
         </Td>
         <Td>
           <a href="">
-            <Badge
+            <Tag
               variant="outline"
               color={"whiteAlpha.800"}
               colorScheme="whiteAlpha"
+              size={'sm'}
             >
               {element.preGroup}
-            </Badge>
+            </Tag>
           </a>
         </Td>
         <Td>{element.preTitle}</Td>
@@ -44,7 +46,7 @@ function PreTable(props) {
   });
   return (
     <div>
-      <TableContainer className="p-10">
+      <TableContainer className="p-10" overflowX={'hidden'}>
         <Table variant="unstyled" color={"whiteAlpha.800"}>
           <Thead>
             <Tr className="bg-zinc-800 text-gray-400 rounded-md p-2">

@@ -1,5 +1,7 @@
 import React from "react";
 import PreTable from "../components/PreTable";
+import Footer from "../components/Footer";
+
 const { DateTime } = require("luxon");
 
 export async function getServerSideProps(context) {
@@ -26,6 +28,7 @@ function Home({ data, preTime }) {
         <p>Proudly indexing : {data.result[0].id} releases.</p>
       </div>
       <PreTable data={data} preTime={preTime} />
+      <Footer />
     </div>
   );
 }
