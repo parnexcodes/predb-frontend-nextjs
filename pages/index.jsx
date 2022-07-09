@@ -1,34 +1,48 @@
 import React from "react";
+import Head from "next/head";
 import PreTable from "../components/PreTable";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 const { DateTime } = require("luxon");
 
 export async function getServerSideProps(context) {
-  const res = await fetch("https://predb-production.up.railway.app/api/pre");
-  const data = await res.json();
-  const preTime = data.result.map((element) => {
+  const [preRes, githubRes] = await Promise.all([
+    fetch("https://predb-production.up.railway.app/api/pre"),
+    fetch("https://api.github.com/repos/parnexcodes/predb-frontend-nextjs/commits/master")
+  ])
+
+  const [preData, githubData] = await Promise.all([
+    preRes.json(),
+    githubRes.json()
+  ])
+
+  const preTime = preData.result.map((element) => {
     let dt = new Date(element.createdAt);
     let preTimeString = dt.toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS);
     return preTimeString;
   });
   return {
-    props: { data, preTime }, // will be passed to the page component as props
+    props: { preData, preTime, githubData }, // will be passed to the page component as props
   };
 }
 
-function Home({ data, preTime }) {
+function Home({ preData, preTime, githubData }) {
   return (
     <div className="min-h-screen bg-zinc-900">
-      <h1 className="text-gray-300 text-7xl text-center font-bold pt-24">
+      <Head>
+        <title>predb | Warez Scene Database</title>
+      </Head>
+      <Header />
+      <h1 className="text-gray-300 text-7xl text-center font-bold mt-10">
         predb
       </h1>
       <div className="text-gray-300 text-center pt-4">
         <h1>just another predb site.</h1>
-        <p>Proudly indexing : {data.result[0].id} releases.</p>
+        <p>Proudly indexing : {preData.result[0].id} releases.</p>
       </div>
-      <PreTable data={data} preTime={preTime} />
-      <Footer />
+      <PreTable preData={preData} preTime={preTime} />
+      <Footer githubData={githubData} />
     </div>
   );
 }

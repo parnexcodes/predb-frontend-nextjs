@@ -10,9 +10,8 @@ import {
   Tag,
 } from "@chakra-ui/react";
 
-function PreTable(props) {
-  const { data, preTime } = props;
-  const predata = data.result.map((element, index) => {
+function PreTable({ preData, preTime }) {
+  const preTableContent = preData.result.map((element, index) => {
     return (
       <Tr className="hover:bg-zinc-800" key={element.id}>
         <Td>
@@ -21,7 +20,7 @@ function PreTable(props) {
               variant="outline"
               color={"whiteAlpha.800"}
               colorScheme="whiteAlpha"
-              size={'sm'}
+              size={"sm"}
             >
               {element.preCategory}
             </Tag>
@@ -33,7 +32,7 @@ function PreTable(props) {
               variant="outline"
               color={"whiteAlpha.800"}
               colorScheme="whiteAlpha"
-              size={'sm'}
+              size={"sm"}
             >
               {element.preGroup}
             </Tag>
@@ -46,7 +45,7 @@ function PreTable(props) {
   });
   return (
     <div>
-      <TableContainer className="p-10" overflowX={'hidden'}>
+      <TableContainer className="p-10">
         <Table variant="unstyled" color={"whiteAlpha.800"}>
           <Thead>
             <Tr className="bg-zinc-800 text-gray-400 rounded-md p-2">
@@ -56,7 +55,7 @@ function PreTable(props) {
               <Th>Posted On</Th>
             </Tr>
           </Thead>
-          <Tbody>{predata}</Tbody>
+          <Tbody>{preTableContent}</Tbody>
         </Table>
       </TableContainer>
     </div>
