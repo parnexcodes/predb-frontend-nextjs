@@ -8,7 +8,6 @@ import {
   Td,
   TableContainer,
   Tag,
-  Button,
 } from "@chakra-ui/react";
 
 function PreTable({ preData, preTime }) {
@@ -39,27 +38,7 @@ function PreTable({ preData, preTime }) {
             </Tag>
           </a>
         </Td>
-        <Td>
-          {element.preTitle}
-          <Button
-            className="ml-2"
-            size={"xs"}
-            colorScheme={"whiteAlpha"}
-            onClick={async () => {
-              const res = await fetch(
-                `https://corsproxy.io/?https://api.srrdb.com/v1/nfo/${element.preTitle}`
-              );
-              const data = await res.json();
-              const nfo = data["nfolink"][0]?.replace("api.", "");
-              const nfoLink = `https://cable.ayra.ch/nfo/?url=${nfo}`;
-              if (nfo != null) {
-                window.open(nfoLink, "_blank");
-              }
-            }}
-          >
-            nfo
-          </Button>
-        </Td>
+        <Td>{element.preTitle}</Td>
         <Td>{preTime[index]}</Td>
       </Tr>
     );
