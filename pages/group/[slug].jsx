@@ -9,29 +9,31 @@ const { DateTime } = require("luxon");
 
 export async function getServerSideProps({ query }) {
   const groupName = query.slug;
-  const [preRes, githubRes] = await Promise.all([
+  const [preRes, groupRes, githubRes] = await Promise.all([
+    fetch('https://predb-production.up.railway.app/api/pre'),
     fetch(`https://predb-production.up.railway.app/api/group?q=${groupName}`),
     fetch(
       "https://api.github.com/repos/parnexcodes/predb-frontend-nextjs/commits/master"
     ),
   ]);
 
-  const [preData, githubData] = await Promise.all([
+  const [preData, groupData, githubData] = await Promise.all([
     preRes.json(),
+    groupRes.json(),
     githubRes.json(),
   ]);
 
-  const preTime = preData.result.map((element) => {
+  const preTime = groupData.result.map((element) => {
     let dt = new Date(element.createdAt);
     let preTimeString = dt.toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS);
     return preTimeString;
   });
   return {
-    props: { preData, preTime, githubData, groupName }, // will be passed to the page component as props
+    props: { preData, preTime, githubData, groupName, groupData }, // will be passed to the page component as props
   };
 }
 
-function Group({ preData, preTime, githubData, groupName }) {
+function Group({ preData, preTime, githubData, groupName, groupData }) {
   return (
     <div className="min-h-screen bg-zinc-900">
       <Head>
@@ -44,9 +46,9 @@ function Group({ preData, preTime, githubData, groupName }) {
       <div className="text-gray-300 text-center pt-4">
         <h1>just another predb site.</h1>
         <p>Proudly indexing : <b>{preData.result[0]?.id}</b> releases.</p>
-        <p><b>{preData.totalRls}</b> scene releases from <b>{groupName}</b>.</p>
+        <p><b>{groupData.totalRls}</b> scene releases from <b>{groupName}</b>.</p>
       </div>
-      <PreTable preData={preData} preTime={preTime} />
+      <PreTable preData={groupData} preTime={preTime} />
       <Footer githubData={githubData} />
     </div>
   );
