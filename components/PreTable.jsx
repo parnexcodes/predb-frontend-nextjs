@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import {
   Table,
   Thead,
@@ -15,7 +16,8 @@ function PreTable({ preData, preTime }) {
     return (
       <Tr className="hover:bg-zinc-800" key={element.id}>
         <Td>
-          <a href="">
+        <Link href={`/section/${element.preCategory}`} as={`/section/${element.preCategory}`}>
+          <a>
             <Tag
               variant="outline"
               color={"whiteAlpha.800"}
@@ -25,9 +27,11 @@ function PreTable({ preData, preTime }) {
               {element.preCategory}
             </Tag>
           </a>
+          </Link>
         </Td>
         <Td>
-          <a href="">
+        <Link href={`/group/${element.preGroup}`} as={`/group/${element.preGroup}`}>
+          <a>
             <Tag
               variant="outline"
               color={"whiteAlpha.800"}
@@ -37,6 +41,7 @@ function PreTable({ preData, preTime }) {
               {element.preGroup}
             </Tag>
           </a>
+        </Link>
         </Td>
         <Td>{element.preTitle}</Td>
         <Td>{preTime[index]}</Td>

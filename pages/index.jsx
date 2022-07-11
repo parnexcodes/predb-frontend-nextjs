@@ -39,7 +39,7 @@ function Home({ preData, preTime, githubData }) {
       </h1>
       <div className="text-gray-300 text-center pt-4">
         <h1>just another predb site.</h1>
-        <p>Proudly indexing : {preData.result[0].id} releases.</p>
+        <p>Proudly indexing : <b>{preData.result[0].id}</b> releases.</p>
       </div>
       <PreTable preData={preData} preTime={preTime} />
       <Footer githubData={githubData} />

@@ -10,6 +10,7 @@ specifiers:
   framer-motion: ^6.4.3
   luxon: ^2.4.0
   next: 12.2.1
+  nprogress: ^0.2.0
   postcss: ^8.4.14
   react: 18.2.0
   react-dom: 18.2.0
@@ -22,6 +23,7 @@ dependencies:
   framer-motion: 6.4.3_biqbaboplfbrettd7655fr4n2y
   luxon: 2.4.0
   next: 12.2.1_biqbaboplfbrettd7655fr4n2y
+  nprogress: 0.2.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
 
@@ -2725,6 +2727,10 @@ packages:
     resolution: {integrity: sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /nprogress/0.2.0:
+    resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==}
+    dev: false
 
   /object-assign/4.1.1:
     resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}
