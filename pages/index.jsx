@@ -3,13 +3,22 @@ import Head from "next/head";
 import PreTable from "../components/PreTable";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import Pagination from "../components/Pagination";
 
 const { DateTime } = require("luxon");
 
 export async function getServerSideProps(context) {
+  let requestEndpoint = (context.query.type) || 'pre'
+  let pageNum = (context.query.page) || ''
+  let query = (context.query.q) || ''
   const [preRes, githubRes] = await Promise.all([
-    fetch("https://predb-production.up.railway.app/api/pre"),
-    fetch("https://api.github.com/repos/parnexcodes/predb-frontend-nextjs/commits/master")
+    fetch(`https://predb-production.up.railway.app/api/${requestEndpoint}?q=${query}&page=${pageNum}`),
+    fetch("https://api.github.com/repos/parnexcodes/predb-frontend-nextjs/commits/master",
+    {
+      headers: {
+        authorization: `token ${process.env.GITHUB_TOKEN}`
+      }
+    })
   ])
 
   const [preData, githubData] = await Promise.all([
@@ -23,11 +32,11 @@ export async function getServerSideProps(context) {
     return preTimeString;
   });
   return {
-    props: { preData, preTime, githubData }, // will be passed to the page component as props
+    props: { preData, preTime, githubData, requestEndpoint, pageNum, query }, // will be passed to the page component as props
   };
 }
 
-function Home({ preData, preTime, githubData }) {
+function Home({ preData, preTime, githubData, requestEndpoint, pageNum, query }) {
   return (
     <div className="min-h-screen bg-zinc-900">
       <Head>
@@ -39,9 +48,10 @@ function Home({ preData, preTime, githubData }) {
       </h1>
       <div className="text-gray-300 text-center pt-4">
         <h1>just another predb site.</h1>
-        <p>Proudly indexing : <b>{preData.result[0].id}</b> releases.</p>
+        <p>Proudly indexing : <b>{preData.totalPre}</b> releases.</p>
       </div>
       <PreTable preData={preData} preTime={preTime} />
+      <Pagination pageNum={pageNum} requestEndpoint={requestEndpoint} query={query} />
       <Footer githubData={githubData} />
     </div>
   );

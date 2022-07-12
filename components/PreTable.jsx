@@ -16,7 +16,13 @@ function PreTable({ preData, preTime }) {
     return (
       <Tr className="hover:bg-zinc-800" key={element.id}>
         <Td>
-        <Link href={`/section/${element.preCategory}`} as={`/section/${element.preCategory}`}>
+        <Link href={{
+          pathname: '/',
+          query: { type: 'cat', q: element.preCategory }
+        }} as={{
+          pathname: '/',
+          query: { type: 'cat', q: element.preCategory }
+        }}>
           <a>
             <Tag
               variant="outline"
@@ -30,7 +36,13 @@ function PreTable({ preData, preTime }) {
           </Link>
         </Td>
         <Td>
-        <Link href={`/group/${element.preGroup}`} as={`/group/${element.preGroup}`}>
+        <Link href={{
+          pathname: '/',
+          query: { type: 'group', q: element.preGroup }          
+        }} as={{
+          pathname: '/',
+          query: { type: 'group', q: element.preGroup }          
+        }}>
           <a>
             <Tag
               variant="outline"
