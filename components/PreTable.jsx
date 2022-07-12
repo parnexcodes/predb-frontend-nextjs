@@ -19,9 +19,6 @@ function PreTable({ preData, preTime }) {
         <Link href={{
           pathname: '/',
           query: { type: 'cat', q: element.preCategory }
-        }} as={{
-          pathname: '/',
-          query: { type: 'cat', q: element.preCategory }
         }}>
           <a>
             <Tag
@@ -37,9 +34,6 @@ function PreTable({ preData, preTime }) {
         </Td>
         <Td>
         <Link href={{
-          pathname: '/',
-          query: { type: 'group', q: element.preGroup }          
-        }} as={{
           pathname: '/',
           query: { type: 'group', q: element.preGroup }          
         }}>
