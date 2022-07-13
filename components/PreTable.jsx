@@ -16,40 +16,48 @@ function PreTable({ preData, preTime }) {
     return (
       <Tr className="hover:bg-zinc-800" key={element.id}>
         <Td>
-        <Link href={{
-          pathname: '/',
-          query: { type: 'cat', q: element.preCategory }
-        }}>
-          <a>
-            <Tag
-              variant="outline"
-              color={"whiteAlpha.800"}
-              colorScheme="whiteAlpha"
-              size={"sm"}
-            >
-              {element.preCategory}
-            </Tag>
-          </a>
+          <Link
+            href={{
+              pathname: "/",
+              query: { type: "cat", q: element.preCategory },
+            }}
+          >
+            <a>
+              <Tag
+                variant="outline"
+                color={"whiteAlpha.800"}
+                colorScheme="whiteAlpha"
+                size={"sm"}
+              >
+                {element.preCategory}
+              </Tag>
+            </a>
           </Link>
         </Td>
         <Td>
-        <Link href={{
-          pathname: '/',
-          query: { type: 'group', q: element.preGroup }          
-        }}>
-          <a>
-            <Tag
-              variant="outline"
-              color={"whiteAlpha.800"}
-              colorScheme="whiteAlpha"
-              size={"sm"}
-            >
-              {element.preGroup}
-            </Tag>
-          </a>
-        </Link>
+          <Link
+            href={{
+              pathname: "/",
+              query: { type: "group", q: element.preGroup },
+            }}
+          >
+            <a>
+              <Tag
+                variant="outline"
+                color={"whiteAlpha.800"}
+                colorScheme="whiteAlpha"
+                size={"sm"}
+              >
+                {element.preGroup}
+              </Tag>
+            </a>
+          </Link>
         </Td>
-        <Td>{element.preTitle}</Td>
+        <Td>
+          <Link href={`/release/${element.preTitle}`}>
+            <a>{element.preTitle}</a>
+          </Link>
+        </Td>
         <Td>{preTime[index]}</Td>
       </Tr>
     );
