@@ -1,9 +1,7 @@
 import React from "react";
 import { githubAtom } from '../pages/index'
-import { useAtom } from 'jotai'
 
 function Footer() {
-  const [atom] = useAtom(githubAtom)
   return (
     <div className="flex justify-center items-end pb-8">
       <div className="flex flex-col">
