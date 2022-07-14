@@ -4,7 +4,6 @@ import PreTable from "../components/PreTable";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Pagination from "../components/Pagination";
-import { atom, useAtom } from "jotai";
 
 const { DateTime } = require("luxon");
 
@@ -31,8 +30,6 @@ export async function getServerSideProps(context) {
     props: { preData, preTime, requestEndpoint, pageNum, query }, // will be passed to the page component as props
   };
 }
-
-export const githubAtom = atom();
 
 function Home({
   preData,
