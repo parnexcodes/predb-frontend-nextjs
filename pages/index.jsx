@@ -4,27 +4,23 @@ import PreTable from "../components/PreTable";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Pagination from "../components/Pagination";
+import { atom, useAtom } from "jotai";
 
 const { DateTime } = require("luxon");
 
 export async function getServerSideProps(context) {
-  let requestEndpoint = (context.query.type) || 'pre'
-  let pageNum = (context.query.page) || ''
-  let query = (context.query.q) || ''
-  const [preRes, githubRes] = await Promise.all([
-    fetch(`https://predb-production.up.railway.app/api/${requestEndpoint}?q=${query}&page=${pageNum}`),
-    fetch("https://api.github.com/repos/parnexcodes/predb-frontend-nextjs/commits/master",
-    {
-      headers: {
-        authorization: `token ${process.env.GITHUB_TOKEN}`
-      }
-    })
-  ])
+  let requestEndpoint = context.query.type || "pre";
+  let pageNum = context.query.page || "";
+  let query = context.query.q || "";
+  const [preRes] = await Promise.all([
+    fetch(
+      `https://predb-production.up.railway.app/api/${requestEndpoint}?q=${query}&page=${pageNum}`
+    )
+  ]);
 
-  const [preData, githubData] = await Promise.all([
-    preRes.json(),
-    githubRes.json()
-  ])
+  const [preData] = await Promise.all([
+    preRes.json()
+  ]);
 
   const preTime = preData.result.map((element) => {
     let dt = new Date(element.createdAt);
@@ -32,11 +28,20 @@ export async function getServerSideProps(context) {
     return preTimeString;
   });
   return {
-    props: { preData, preTime, githubData, requestEndpoint, pageNum, query }, // will be passed to the page component as props
+    props: { preData, preTime, requestEndpoint, pageNum, query }, // will be passed to the page component as props
   };
 }
 
-function Home({ preData, preTime, githubData, requestEndpoint, pageNum, query }) {
+export const githubAtom = atom();
+
+function Home({
+  preData,
+  preTime,
+  requestEndpoint,
+  pageNum,
+  query,
+}) {
+
   return (
     <div className="min-h-screen bg-zinc-900">
       <Head>
@@ -48,11 +53,17 @@ function Home({ preData, preTime, githubData, requestEndpoint, pageNum, query })
       </h1>
       <div className="text-gray-300 text-center pt-4">
         <h1>just another predb site.</h1>
-        <p>Proudly indexing : <b>{preData.totalPre}</b> releases.</p>
+        <p>
+          Proudly indexing : <b>{preData.totalPre}</b> releases.
+        </p>
       </div>
       <PreTable preData={preData} preTime={preTime} />
-      <Pagination pageNum={pageNum} requestEndpoint={requestEndpoint} query={query} />
-      <Footer githubData={githubData} />
+      <Pagination
+        pageNum={pageNum}
+        requestEndpoint={requestEndpoint}
+        query={query}
+      />
+      <Footer />
     </div>
   );
 }
