@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -57,6 +57,16 @@ function Release({ nfoData, srrData, preData }) {
     );
   });
 
+  const [time, setTime] = useState();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let dt = new Date(preData["result"][0].createdAt);
+    let preTimeString = dt.toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS);
+    setTime(preTimeString);
+    setLoading(false);
+  }, [preData]);
+
   let dt = new Date(preData["result"][0].createdAt);
   let preTimeString = dt.toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS);
 
@@ -68,11 +78,18 @@ function Release({ nfoData, srrData, preData }) {
       </h1>
       <p className="text-gray-300 text-center pt-4">just another predb site.</p>
       <div className="flex flex-col items-center p-10">
-        <p className="text-gray-300 text-3xl break-all text-center font-semibold">{slug}</p>
+        <p className="text-gray-300 text-3xl break-all text-center font-semibold">
+          {slug}
+        </p>
         <div className="text-gray-300 p-2 mt-2 text-lg flex items-center flex-col">
-          <p className="">
-            Pred: <b>{preTimeString}</b>
-          </p>
+          {loading ? (
+            <></>
+          ) : (
+            <p>
+              Pred: <b>{time}</b>
+            </p>
+          )}
+
           <p>
             Group:{" "}
             <Link

@@ -11,7 +11,7 @@ import {
   Tag,
 } from "@chakra-ui/react";
 
-function PreTable({ preData, preTime }) {
+function PreTable({ preData, preTime, loading }) {
   const preTableContent = preData.result.map((element, index) => {
     return (
       <Tr className="hover:bg-zinc-800" key={element.id}>
@@ -58,7 +58,7 @@ function PreTable({ preData, preTime }) {
             <a>{element.preTitle}</a>
           </Link>
         </Td>
-        <Td>{preTime[index]}</Td>
+        {loading ? <></> : <Td>{preTime[index]}</Td>}
       </Tr>
     );
   });
@@ -71,7 +71,7 @@ function PreTable({ preData, preTime }) {
               <Th>Pre Category</Th>
               <Th>Pre Group</Th>
               <Th>Pre Title</Th>
-              <Th>Posted On</Th>
+              {loading ? <></> : <Th>Posted On</Th>}
             </Tr>
           </Thead>
           <Tbody>{preTableContent}</Tbody>
