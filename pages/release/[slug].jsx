@@ -22,7 +22,7 @@ export async function getServerSideProps(context) {
   const [nfoRes, srrRes, preRes] = await Promise.all([
     fetch(`https://corsproxy.io/?https://api.srrdb.com/v1/nfo/${slug}`),
     fetch(`https://corsproxy.io/?https://api.srrdb.com/v1/details/${slug}`),
-    fetch(`https://predb-production.up.railway.app/api/search?q=${slug}`),
+    fetch(`https://predb-backend.vercel.app/api/search?q=${slug}`),
   ]);
 
   const [nfoData, srrData, preData] = await Promise.all([

@@ -13,7 +13,7 @@ export async function getServerSideProps(context) {
   let query = context.query.q || "";
   const [preRes] = await Promise.all([
     fetch(
-      `https://predb-production.up.railway.app/api/${requestEndpoint}?q=${query}&page=${pageNum}`
+      `https://predb-backend.vercel.app/api/${requestEndpoint}?q=${query}&page=${pageNum}`
     ),
   ]);
 
